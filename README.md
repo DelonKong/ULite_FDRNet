@@ -55,7 +55,7 @@ ULite_FDRNet/
 # LS2CM(LGRS 2021), ELS2T(TGRS 2023), LMSS_NAS(TGRS 2023), CLOLN(TGRS 2024), ACB(TGRS 2024)
 ```
 
-Other detailed information is in [README]()
+Other detailed information is in [README](https://github.com/DelonKong/ULite_FDRNet/blob/main/models/README.md)
 
 ## Datasets
 
