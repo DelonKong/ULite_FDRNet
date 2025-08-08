@@ -87,7 +87,7 @@ Available at: [SDFC dataset: a large-scale benchmark dataset for hyperspectral i
 
 ![image-20250731164958257](./README.assets/image-20250731164958257.png)
 
-Other detailed information is in [README](https://github.com/DelonKong/ULite_FDRNet/blob/main/datasets/README.md)
+Other detailed information and download link is in [README](https://github.com/DelonKong/ULite_FDRNet/blob/main/datasets/README.md)
 
 ## TODO
 

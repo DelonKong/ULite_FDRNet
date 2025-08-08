@@ -1,32 +1,30 @@
 # Datasets
 
-#### IP, SV, PC, PU, KSC, BS
+## IP, SV, PC, PU, KSC, BS
 
 **Indian Pines(IP), Salinas(SV), Pavia Centre and University(PC, PU), Kennedy Space Center (KSC), Botswana(BS)**
 
 Available at: [Hyperspectral Remote Sensing Scenes - Grupo de Inteligencia Computacional (GIC)](https://www.ehu.eus/ccwintco/index.php/Hyperspectral_Remote_Sensing_Scenes)
 
-#### WHU-Hi dataset
+## WHU-Hi dataset
 
 **WHU-HH, WHU-HC, WHU-LK**
 
 Available at: https://rsidea.whu.edu.cn/resource_H2.htm
 
-#### University of Houston (HsU)
+## University of Houston (HsU)
 
 Available at: [2018 IEEE GRSS Data Fusion Challenge – Fusion of Multispectral LiDAR and Hyperspectral Data – Machine Learning and Signal Processing Laboratory](https://machinelearning.ee.uh.edu/2018-ieee-grss-data-fusion-challenge-fusion-of-multispectral-lidar-and-hyperspectral-data/)
 
-#### HyRANK(HRL) 
+## HyRANK(HRL) 
 
 Available at: [HyRANK Hyperspectral Satellite Dataset I](https://zenodo.org/records/1222202#.Y4HMrX1Bxdi)
 
-#### ShanDongFeiCheng (SDFC)
+## ShanDongFeiCheng (SDFC)
 
 Available at: [SDFC dataset: a large-scale benchmark dataset for hyperspectral image classification | Optical and Quantum Electronics](https://link.springer.com/article/10.1007/s11082-022-04399-9)
 
-
-
-## File structure
+# File structure
 
 ```
 datasets/
@@ -70,4 +68,18 @@ datasets/
         ├── WHU_Hi_LongKou.mat
         └── WHU_Hi_LongKou_gt.mat
 ```
+
+# Download
+
+## Datasets
+
+**夸克网盘**：https://pan.quark.cn/s/ac084a8148ac?pwd=2DTs
+
+**百度网盘**: https://pan.baidu.com/s/1Mr8S8K8ZDjyeIEMPnV2i1A?pwd=7tmv
+
+**Google Drive**: https://drive.google.com/drive/folders/1SX0RNBqh6vAkuh6v_K8kQprPb-l7TWaH?usp=sharing
+
+## Code
+
+**Code**: https://github.com/DelonKong/ULite_FDRNet/tree/main
 
