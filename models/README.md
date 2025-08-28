@@ -12,6 +12,16 @@ Based on [[**Code**]]( https://github.com/WUTCM-Lab/CSCANet) by [Bo Zhang](https
 
 Based on [[**Code**]]( https://github.com/hanzhu97702/S2VNet) by [Zhu Han](https://ieeexplore.ieee.org/author/37088991873), licensed under GPL-3.0.
 
+[3] Z. Chen, S. K. Roy, H. Gao, Y. Ding and B. Zhang, "SiT: Scale-interaction Transformer for Hyperspectral Image Classification," in *IEEE Transactions on Geoscience and Remote Sensing*, doi: 10.1109/TGRS.2025.3598290.
+
+Based on [[**Code**]](https://github.com/zhonghaochen/SiT/tree/main) by [Zhonghao Chen]([Zhonghao Chen - IEEE Xplore Author Profile](https://ieeexplore.ieee.org/author/37088809151)). No explicit license was provided. If there is any infringement, please contact me
+
+[4] Z. Shu, K. Zeng, J. Zhou, Y. Wang, M. Tai and Z. Yu, "Spectral-Spatial Synergy Guided Attention Network for Hyperspectral Image Classification," in *IEEE Transactions on Geoscience and Remote Sensing*, doi: 10.1109/TGRS.2025.3603397.
+
+Based on [[**Code**]](https://github.com/szq0816/DSGAN) by [Zhenqiu Shu](https://ieeexplore.ieee.org/author/37085652490). No explicit license was provided. If there is any infringement, please contact me
+
+
+
 ## 2024:
 
 [1] Z. Han, J. Yang, L. Gao, Z. Zeng, B. Zhang, and J. Chanussot, “Dual-Branch Subpixel-Guided Network for Hyperspectral Image Classification,” *IEEE Transactions on Geoscience and Remote Sensing*, vol. 62, pp. 1–13, Jun. 2024, doi: [10.1109/TGRS.2024.3418583](https://doi.org/10.1109/TGRS.2024.3418583).
@@ -127,8 +137,10 @@ models/
 ├── gaht.py
 ├── get_model.py			<-- get models
 ├── morphFormer.py
+├── SiT.py
 ├── speformer.py
-└── ssftt.py
+├── ssftt.py
+├── SSSGAN.py
 ```
 
 **The comparison method in the article:**
