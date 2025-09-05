@@ -4,6 +4,8 @@
 
 The repository for this project is the code implementation of the paper *Ultralightweight Progressive Feature Disentanglement and Recomposition Network for Hyperspectral Image Classification*.
 
+**A total of over 30+ models are supported**, including CNNs, Transformers, Mambas...
+
 If you find this project helpful, please give us a star ⭐️.
 
 ## Abstract
@@ -45,7 +47,52 @@ ULite_FDRNet/
 ```
 
 ## Models
+**A total of over 30+ models are supported**
 
+```
+models/
+├── BS2T/
+│   ├── global_module/
+│   └── network.py
+├── DSNet/
+│   ├── DSNet.py
+│   └── train_DSNet.py
+├── S2VNet/
+│   ├── S2VNet.py
+│   ├── retentive.py
+│   └── train_S2VNet.py
+├── A2S2KResNet.py
+├── ACB.py
+├── AMF.py
+├── CLOLN.py
+├── CSCANet.py
+├── DCTN.py
+├── ELS2T.py
+├── Ghostnet.py
+├── HybridFormer.py
+├── HybridSN.py
+├── LMSS_NAS.py
+├── LRDTN.py
+├── LS2CM.py
+├── MHIAIFormer.py
+├── README.md				<-- readme
+├── attention.py
+├── cnn3d.py
+├── dffn.py
+├── gaht.py
+├── get_model.py			<-- get models
+├── morphFormer.py
+├── SiT.py
+├── speformer.py
+├── ssftt.py
+├── SSSGAN.py
+├── Mamba_Models
+│   ├── CenterMamba
+│   ├── HyperMamba
+│   ├── IGroupSSMamba
+│   ├── MambaHSI
+│   ├── 3DSSMamba
+```
 **The comparison method in the article:**
 
 ```
@@ -194,6 +241,17 @@ Based on [[**Code**]]( https://github.com/gokriznastic/HybridSN) by [Swalpa Kuma
 Based on [[**Code**]]( https://github.com/nshaud/DeepHyperx) by [Amina Ben Hamida](https://ieeexplore.ieee.org/author/37069950200). No explicit license was provided. If there is any infringement, please contact me
 
 [3] W. Song, S. Li, L. Fang, and T. Lu, “Hyperspectral Image Classification With Deep Feature Fusion Network,” *IEEE Transactions on Geoscience and Remote Sensing*, vol. 56, no. 6, pp. 3173–3184, 2018, doi: [10.1109/TGRS.2018.2794326](https://doi.org/10.1109/TGRS.2018.2794326).
+
+## Mamba Models
+[1] Y. He, B. Tu, B. Liu, J. Li, and A. Plaza, “3DSS-Mamba: 3D-Spectral-Spatial Mamba for Hyperspectral Image Classification,” IEEE Transactions on Geoscience and Remote Sensing, vol. 62, pp. 1–16, 2024, doi: 10.1109/TGRS.2024.3472091.
+
+[2] T. Zhang, C. Xuan, F. Cheng, Z. Tang, X. Gao, and Y. Song, “CenterMamba: Enhancing semantic representation with center-scan Mamba network for hyperspectral image classification,” Expert Systems with Applications, vol. 287, p. 127985, Aug. 2025, doi: 10.1016/j.eswa.2025.127985.
+
+[3] Q. Liu, J. Yue, Y. Fang, S. Xia, and L. Fang, “HyperMamba: A Spectral-Spatial Adaptive Mamba for Hyperspectral Image Classification,” IEEE Transactions on Geoscience and Remote Sensing, vol. 62, pp. 1–14, 2024, doi: 10.1109/TGRS.2024.3482473.
+
+[4] Y. He, B. Tu, P. Jiang, B. Liu, J. Li, and A. Plaza, “IGroupSS-Mamba: Interval Group Spatial–Spectral Mamba for Hyperspectral Image Classification,” IEEE Transactions on Geoscience and Remote Sensing, vol. 62, pp. 1–17, 2024, doi: 10.1109/TGRS.2024.3502055.
+
+[5] Y. Li, Y. Luo, L. Zhang, Z. Wang, and B. Du, “MambaHSI: Spatial–Spectral Mamba for Hyperspectral Image Classification,” IEEE Transactions on Geoscience and Remote Sensing, vol. 62, pp. 1–16, 2024, doi: 10.1109/TGRS.2024.3430985.
 
 Licensing
 ---------------------

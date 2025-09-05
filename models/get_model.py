@@ -13,18 +13,19 @@ from .HybridSN import HybridSN
 from .LRDTN import LRDTN
 from .LS2CM import LS2CMNet
 from .S2VNet.S2VNet import S2VNet
-from .ULite_FDRNet import ULite_FDRNet
 from .cnn3d import cnn3d
 from .dffn import dffn
 from .gaht import gaht
 from .morphFormer import morphFormer
-from .simFormer import simFormer
 from .speformer import speformer
 from .ssftt import ssftt
 from .MHIAIFormer import MHIAIFormer
 from .LMSS_NAS import LMSS_NAS
-from .ssftt_FDR import SSFTT_FDR
-
+from .Mamba_Models.CenterMamba import CenterMamba
+from .Mamba_Models.HyperMamba import HyperMamba
+from .Mamba_Models.IGroupSSMamba import IGroupSSMamba
+from .Mamba_Models.MambaHSI import MambaHSI
+from .Mamba_Models.SSMamba3D import SSMamba3D
 
 def get_model(model_name,
               dataset_name,
@@ -53,20 +54,21 @@ def get_model(model_name,
 
     # example: model_name='cnn3d', dataset_name='pu'
     if model_name == 'ULite_FDRNet':
-        model = ULite_FDRNet(dataset_name,
-                          in_chans=in_chans,
-                          patch_size=patch_size,
-                          out_channels_3d=out_channels_3d,
-                          num_heads=num_heads,
-                          embed_dim=embed_dim,
-                          mlp_ratios=mlp_ratios,
-                          act_layer=act_layer,
-                          num_extras=num_extras,
-                          depths_te=depths_te,
-                          ratio_2d=ratio_2d,
-                          ratio_3d=ratio_3d,
-                          Scale=Scale
-                          )
+        model = None
+        # model = ULite_FDRNet(dataset_name,
+        #                   in_chans=in_chans,
+        #                   patch_size=patch_size,
+        #                   out_channels_3d=out_channels_3d,
+        #                   num_heads=num_heads,
+        #                   embed_dim=embed_dim,
+        #                   mlp_ratios=mlp_ratios,
+        #                   act_layer=act_layer,
+        #                   num_extras=num_extras,
+        #                   depths_te=depths_te,
+        #                   ratio_2d=ratio_2d,
+        #                   ratio_3d=ratio_3d,
+        #                   Scale=Scale
+        #                   )
 
     elif model_name == 'MHIAIFormer':
         model = MHIAIFormer(dataset_name, patch_size)
@@ -134,6 +136,22 @@ def get_model(model_name,
 
     elif model_name == 'ACB':
         model = ACB(dataset_name, patch_size)
+
+
+    # ==================================================================
+    # Mamba models
+    # CenterMamba, HyperMamba, IGroupSSMamba, MambaHSI, 3DSSMamba(SSMamba3D)
+    # ==================================================================
+    elif model_name == 'CenterMamba':
+        model = CenterMamba(dataset_name, patch_size)
+    elif model_name == 'HyperMamba':
+        model = HyperMamba(dataset_name, patch_size)
+    elif model_name == 'IGroupSSMamba':
+        model = IGroupSSMamba(dataset_name, patch_size)
+    elif model_name == 'MambaHSI':
+        model = MambaHSI(dataset_name, patch_size)
+    elif model_name == '3DSSMamba':
+        model = SSMamba3D(dataset_name, patch_size)
 
     else:
         raise KeyError("{} model is not supported yet".format(model_name))

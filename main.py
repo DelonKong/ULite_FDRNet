@@ -12,7 +12,6 @@ from thop import clever_format
 from fvcore.nn import FlopCountAnalysis, flop_count_table
 from models.DSNet.train_DSNet import train_DSNet, test_DSNet
 from models.S2VNet.train_S2VNet import train_S2VNet, test_S2VNet
-from models.groupedSpectralSimilarity import grouped_spectral_similarity
 from utils.dataset import load_mat_hsi, sample_gt, HSIDataset
 from utils.dataset2 import sample_gt_fixed
 from utils.gpu_info import gpu_info
@@ -36,7 +35,8 @@ if __name__ == "__main__":
     # BS2T(TGRS 2022), HybridFormer(TGRS 2023), AMF(TGRS 2023), DSNet(TGRS 2024), MHIAIFormer(JSTARS, 2024)
     # =============================== REPLACEMENT EXPERIMENTS:===============================
     # A2S2K_FDR, SSFTT_FDR, LRDTN_FDR(pca=100), CSCANet_FDR(pca=30)
-
+    # =============================== Mamba models:===============================
+    # CenterMamba, HyperMamba, IGroupSSMamba, MambaHSI, 3DSSMamba
 
     # =========================================
     # * data params

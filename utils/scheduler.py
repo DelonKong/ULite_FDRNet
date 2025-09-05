@@ -111,6 +111,29 @@ def load_scheduler(model_name, model):
         optimizer = optim.Adam(model.parameters(), lr=1e-3, betas=(0.9, 0.999), eps=1e-8)
         scheduler = None
 
+
+    # ==================================================================
+    # Mamba models
+    # CenterMamba, HyperMamba, IGroupSSMamba, MambaHSI, 3DSSMamba(SSMamba3D)
+    # ==================================================================
+    elif model_name == 'CenterMamba':
+        optimizer = optim.Adam(model.parameters(), lr=0.001)
+        scheduler = None
+    elif model_name == 'HyperMamba':
+        optimizer = optim.Adam(model.parameters(), lr=0.001)
+        scheduler = None
+    elif model_name == 'IGroupSSMamba':
+        optimizer = optim.Adam(model.parameters(), lr=0.001)
+        scheduler = None
+    elif model_name == 'MambaHSI':
+        optimizer = optim.Adam(model.parameters(), lr=0.0003)
+        scheduler = None
+    elif model_name == '3DSSMamba':
+        optimizer = optim.Adam(model.parameters(), lr=0.001)
+        scheduler = None
+
+
+
     else:
         optimizer = optim.Adam(model.parameters(), lr=1e-3, betas=(0.9, 0.999), eps=1e-8)
         scheduler = None
