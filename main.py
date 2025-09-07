@@ -12,7 +12,7 @@ from thop import clever_format
 from fvcore.nn import FlopCountAnalysis, flop_count_table
 from models.DSNet.train_DSNet import train_DSNet, test_DSNet
 from models.S2VNet.train_S2VNet import train_S2VNet, test_S2VNet
-from utils.dataset import load_mat_hsi, sample_gt, HSIDataset
+from utils.dataset import load_mat_hsi, sample_gt, HSIDataset, controlled_random_sampling
 from utils.dataset2 import sample_gt_fixed
 from utils.gpu_info import gpu_info
 from utils.utils import split_info_print, metrics, show_results, create_logger
@@ -41,6 +41,7 @@ if __name__ == "__main__":
     # =========================================
     # * data params
     parser.add_argument("--dataset_name", type=str, default="whulk")  # pu sa whuhh whulk
+    parser.add_argument("--random_sampling", type=bool, default=False)  # random_sampling or controlled_random_sampling to avoid pixel-sharing
     # pc pu IP whuhc whuhh whulk hrl sa BS HsU KSC
     # =========================================
     # 1.5%: 0.03
@@ -188,7 +189,12 @@ if __name__ == "__main__":
         if opts.is_ratio:
             # ================================================================
             # get train_gt, val_gt and test_gt with ratio per class
-            trainval_gt, test_gt = sample_gt(gt, opts.ratio, seeds[run])  # 1-opts.ratio的测试集，default=0.9
+            if opts.random_sampling:
+                # random_sampling
+                trainval_gt, test_gt = sample_gt(gt, opts.ratio, seeds[run])  # 1-opts.ratio的测试集，default=0.9
+            else:
+                # controlled_random_sampling
+                trainval_gt, test_gt = controlled_random_sampling(gt, opts.ratio, seeds[run])
             train_gt, val_gt = sample_gt(trainval_gt, 0.5, seeds[run])  # 1%的训练集
             del trainval_gt
 

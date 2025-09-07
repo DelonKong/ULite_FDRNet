@@ -1,8 +1,8 @@
 import argparse
-from collections import Counter
-from collections import defaultdict
 import random
-from einops import rearrange
+from matplotlib import pyplot as plt
+from matplotlib.colors import ListedColormap
+from matplotlib.patches import Patch
 from scipy import io
 import os
 import numpy as np
@@ -10,6 +10,9 @@ import torch
 import torch.utils.data
 from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
+from skimage.measure import label
+from collections import deque
+
 
 """
 按每个类别固定比例划分训练集、测试集、验证集。
@@ -355,6 +358,111 @@ def load_mat_hsi(dataset_name, dataset_dir, spectral_similarity=False,
     return image, gt, labels
 
 
+def controlled_random_sampling(gt, percentage, seed):
+    """
+    受控随机采样策略 - 替换原来的sample_gt函数
+    按照空间连通性划分训练集和测试集，避免pixel sharing问题
+
+    :param gt: 2d int array, -1 for undefined or not selected, index starts at 0
+    :param percentage: 训练样本所占比例（每个类别内）
+    :param seed: 随机种子
+    :return: train_gt, test_gt
+    """
+    np.random.seed(seed)
+    random.seed(seed)
+
+    # 初始化输出数组
+    train_gt = np.full_like(gt, -1)
+    test_gt = np.full_like(gt, -1)
+
+    # 获取所有类别
+    classes = np.unique(gt)
+    classes = classes[classes >= 0]  # 排除负值（未定义像素）
+
+    for c in classes:
+        # 创建当前类别的二值掩码
+        class_mask = (gt == c)
+
+        # 使用连通组件分析找到所有独立分区
+        labeled_array, num_features = label(class_mask, connectivity=2, return_num=True)
+
+        # 对每个分区进行处理
+        for i in range(1, num_features + 1):
+            # 获取当前分区的像素坐标
+            partition_mask = (labeled_array == i)
+            indices = np.where(partition_mask)
+            coords = list(zip(indices[0], indices[1]))
+
+            # 计算需要抽取的样本数
+            n_total = len(coords)
+            n_train = max(1, int(n_total * percentage))
+
+            if n_train >= n_total:
+                # 如果分区太小，全部作为训练样本
+                for x, y in coords:
+                    train_gt[x, y] = c
+            else:
+                # 随机选择种子点
+                seed_point = random.choice(coords)
+
+                # 使用区域生长算法获取连续区域
+                region = region_growing(partition_mask, seed_point, n_train)
+
+                # 将生长得到的区域标记为训练样本
+                for x, y in region:
+                    train_gt[x, y] = c
+
+                # 将分区中剩余像素标记为测试样本
+                for x, y in coords:
+                    if (x, y) not in region:
+                        test_gt[x, y] = c
+        # 对于没有分到训练集的分区，全部作为测试集
+        for i in range(1, num_features + 1):
+            partition_mask = (labeled_array == i)
+            indices = np.where(partition_mask)
+            for x, y in zip(indices[0], indices[1]):
+                if train_gt[x, y] == -1:  # 如果这个像素没有被选为训练样本
+                    test_gt[x, y] = c
+
+    return train_gt, test_gt
+
+
+def region_growing(mask, seed_point, n_pixels):
+    """
+    区域生长算法 - 从种子点开始生长，获取指定数量的连续像素
+
+    :param mask: 二值掩码，表示可生长的区域
+    :param seed_point: 种子点坐标 (x, y)
+    :param n_pixels: 需要生长的像素数量
+    :return: 生长得到的像素坐标列表
+    """
+    # 初始化
+    grown_region = set()
+    queue = deque([seed_point])
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # 四连通
+
+    while queue and len(grown_region) < n_pixels:
+        x, y = queue.popleft()
+
+        if (x, y) in grown_region:
+            continue
+
+        grown_region.add((x, y))
+
+        # 检查四个方向的邻居
+        for dx, dy in directions:
+            nx, ny = x + dx, y + dy
+
+            # 确保邻居在图像范围内且属于可生长区域
+            if (0 <= nx < mask.shape[0] and
+                    0 <= ny < mask.shape[1] and
+                    mask[nx, ny] and
+                    (nx, ny) not in grown_region):
+                queue.append((nx, ny))
+
+    return list(grown_region)
+
+
 def sample_gt(gt, percentage, seed):
     """
     Splitting train and test dataset
@@ -481,11 +589,225 @@ class HSIDataset(torch.utils.data.Dataset):
         return data, label
 
 
+def visualize_sampling_strategies(gt, percentage, seed, class_to_visualize=None):
+    """
+    Visualize the differences between traditional random sampling and controlled random sampling
+    :param gt: Ground truth label map
+    :param percentage: Sampling ratio
+    :param seed: Random seed
+    :param class_to_visualize: Specific class to visualize (optional)
+    """
+    np.random.seed(seed)
+    random.seed(seed)
+
+    classes = np.unique(gt)
+    classes = classes[classes >= 0]
+
+    if class_to_visualize is None:
+        class_to_visualize = classes[0] if len(classes) > 0 else None
+
+    if class_to_visualize is None or class_to_visualize not in classes:
+        print("No valid classes available for visualization")
+        return
+
+    fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+    class_mask = (gt == class_to_visualize)
+    axes[0].imshow(class_mask, cmap='gray')
+    axes[0].set_title(f'Original Class {class_to_visualize} Distribution')
+    axes[0].axis('off')
+
+    traditional_train_gt, traditional_test_gt = sample_gt(gt, percentage, seed)
+    plot_sampling_result(axes[1], traditional_train_gt, traditional_test_gt, class_to_visualize,
+                         'Traditional Random Sampling')
+
+    controlled_train_gt, controlled_test_gt = controlled_random_sampling(gt, percentage, seed)
+    plot_sampling_result(axes[2], controlled_train_gt, controlled_test_gt, class_to_visualize,
+                         'Controlled Random Sampling')
+
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_sampling_result(ax, train_gt, test_gt, class_idx, title):
+    """
+    Plot sampling results
+    """
+
+    result = np.zeros_like(train_gt, dtype=np.uint8)
+
+    # training samples as 1 (green)
+    result[(train_gt == class_idx)] = 1
+
+    # testing samples as 2 (red)
+    result[(test_gt == class_idx)] = 2
+
+    from matplotlib.colors import ListedColormap
+    cmap = ListedColormap(['black', 'green', 'red'])
+
+    ax.imshow(result, cmap=cmap)
+    ax.set_title(title)
+    ax.axis('off')
+
+    from matplotlib.patches import Patch
+    legend_elements = [
+        Patch(facecolor='green', label='Training Samples'),
+        Patch(facecolor='red', label='Testing Samples'),
+        Patch(facecolor='black', label='Other Areas')
+    ]
+    ax.legend(handles=legend_elements, loc='upper right', bbox_to_anchor=(1.0, 1.0))
+
+
+def visualize_all_classes(gt, percentage, seed):
+    """
+    在一张图上可视化所有类别的采样策略差异
+    """
+    np.random.seed(seed)
+    random.seed(seed)
+
+    classes = np.unique(gt)
+    classes = classes[classes >= 0]
+
+    if len(classes) == 0:
+        print("No valid classes available for visualization")
+        return
+
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+
+    traditional_train_gt, traditional_test_gt = sample_gt(gt, percentage, seed)
+    controlled_train_gt, controlled_test_gt = controlled_random_sampling(gt, percentage, seed)
+
+    plot_all_classes(axes[0], gt, "Original Distribution")
+
+    plot_all_classes_sampling(axes[1], traditional_train_gt, traditional_test_gt,
+                              "Traditional Sampling")
+
+    plot_all_classes_sampling(axes[2], controlled_train_gt, controlled_test_gt,
+                              "Controlled Sampling")
+
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_all_classes(ax, gt, title):
+    """
+    绘制所有类别的原始分布
+    """
+    # 创建可视化图像
+    result = np.zeros_like(gt, dtype=np.uint8)
+
+    # 获取所有有效类别
+    classes = np.unique(gt)
+    valid_classes = classes[classes >= 0]
+    n_classes = len(valid_classes)
+
+    for i, c in enumerate(valid_classes):
+        result[gt == c] = i + 1
+
+    if n_classes > 0:
+        colors = plt.cm.tab20(np.linspace(0, 1, n_classes))
+        cmap = ListedColormap(['black'] + [tuple(c[:3]) for c in colors])
+    else:
+        cmap = ListedColormap(['black'])
+
+    ax.imshow(result, cmap=cmap)
+    ax.set_title(title)
+    ax.axis('off')
+
+    legend_elements = []
+    for i, c in enumerate(valid_classes):
+        legend_elements.append(Patch(facecolor=colors[i], label=f'Class {c}'))
+
+    if legend_elements:
+        ax.legend(handles=legend_elements, loc='upper right', bbox_to_anchor=(1.0, 1.0))
+
+
+def plot_all_classes_sampling(ax, train_gt, test_gt, title):
+    """
+    绘制所有类别的采样结果
+    """
+    result = np.zeros_like(train_gt, dtype=np.uint8)
+
+    for i, c in enumerate(np.unique(train_gt)):
+        if c >= 0:
+            result[(train_gt == c)] = 2 * i + 1
+            result[(test_gt == c)] = 2 * i + 2
+
+    n_classes = len(np.unique(train_gt)) - 1
+    colors = plt.cm.tab20(np.linspace(0, 1, n_classes))
+
+    color_list = ['black']
+    for color in colors:
+        color_list.append(tuple(color[:3]))
+        color_list.append(tuple(np.clip(np.array(color[:3]) * 1.5, 0, 1)))
+
+    cmap = ListedColormap(color_list)
+
+    ax.imshow(result, cmap=cmap)
+    ax.set_title(title)
+    ax.axis('off')
+
+    legend_elements = []
+    for i, c in enumerate(np.unique(train_gt)):
+        if c >= 0:
+            legend_elements.append(Patch(facecolor=colors[i], label=f'Class {c} Training Sampling'))
+            legend_elements.append(Patch(facecolor=np.clip(np.array(colors[i]) * 1.5, 0, 1),
+                                         label=f'Class {c} Test Sampling'))
+
+    ax.legend(handles=legend_elements, loc='upper right', bbox_to_anchor=(1.0, 1.0))
+
+
+def plot_all_classes_sampling(ax, train_gt, test_gt, title):
+    """
+    绘制所有类别的采样结果
+    """
+    result = np.zeros_like(train_gt, dtype=np.uint8)
+
+    classes = np.unique(train_gt)
+    valid_classes = classes[classes >= 0]
+    n_classes = len(valid_classes)
+
+    if n_classes == 0:
+        ax.imshow(result, cmap='gray')
+        ax.set_title(title)
+        ax.axis('off')
+        return
+
+    base_colors = plt.cm.tab20(np.linspace(0, 1, n_classes))
+    color_list = ['black']
+
+    for color in base_colors:
+        color_list.append(tuple(color[:3]))
+        light_color = np.clip(np.array(color[:3]) * 1.5, 0, 1)
+        color_list.append(tuple(light_color))
+
+    cmap = ListedColormap(color_list)
+
+    for i, c in enumerate(valid_classes):
+        result[(train_gt == c)] = 2 * i + 1
+        result[(test_gt == c)] = 2 * i + 2
+
+    ax.imshow(result, cmap=cmap)
+    ax.set_title(title)
+    ax.axis('off')
+
+    legend_elements = []
+    for i, c in enumerate(valid_classes):
+        legend_elements.append(Patch(facecolor=color_list[2 * i + 1], label=f'Class {c} Training Sampling'))
+        legend_elements.append(Patch(facecolor=color_list[2 * i + 2], label=f'Class {c} Test Sampling'))
+
+
+    if legend_elements:
+        ax.legend(handles=legend_elements, loc='upper right', bbox_to_anchor=(1.0, 1.0))
+
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="run HSI datasets loading...")
-    parser.add_argument("--dataset_name", type=str, default="pc")
+    parser.add_argument("--dataset_name", type=str, default="whulk")
     # pu IP whuhc whuhh whulk hrl sa HsU KSC BS
+    parser.add_argument("--ratio", type=float, default=0.02)  # percentage: for example
+
 
     # pc dataset: The numbands is: 102, num_classes is: 9, h: 1096, w:715, num_pixels is: 783640, spatial resolution: 1.3 m
     # pu dataset: The numbands is: 103, num_classes is: 9, h: 610, w:340, num_pixels is: 207400, spatial resolution: 1.3 m
@@ -511,4 +833,16 @@ if __name__ == "__main__":
     num_pixels = image.shape[0] * image.shape[1]
     print("{} dataset: The numbands is: {}, num_classes is: {}, h: {}, w:{}, num_pixels is: {}"
           .format(opts.dataset_name, num_bands, num_classes, image.shape[0], image.shape[1], num_pixels))
+
+
+    seeds = 202205
+
+    # visualize specific class
+    visualize_sampling_strategies(gt, opts.ratio, seeds, class_to_visualize=1)
+
+    # visualize first class
+    visualize_sampling_strategies(gt, opts.ratio, seeds)
+
+    # visualize all class
+    visualize_all_classes(gt, opts.ratio, seeds)
 
