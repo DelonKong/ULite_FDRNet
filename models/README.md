@@ -2,6 +2,16 @@
 
 Some of our codes references to the following projects, and we are thankful for their great work:
 
+## 2026:
+
+[1] M. Tai, Z. Shu, S. Tang, and Z. Yu, “Spatial-spectral multi-order gated aggregation network with bidirectional interactive fusion for hyperspectral image classification,” *Neural Networks*, vol. 194, p. 108152, 2026, doi: https://doi.org/10.1016/j.neunet.2025.108152.
+
+[2] Z. Khan, N. Dey, K. Kathiravan, S.-C. Yoon, and S. M. Bhandarkar, “Spatial–Spectral Transformer With Patch-Local Mixed-Axis 2-D Rotary Position Embedding for Hyperspectral Image Classification,” *IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing*, vol. 19, pp. 1910–1925, 2026, doi: [10.1109/JSTARS.2025.3643365](https://doi.org/10.1109/JSTARS.2025.3643365).
+
+[3] X. Wan, F. Chen, D. Mo, Z. Sun, K. Hu, and Y. He, “CSA-Kansformer : Cross-scale aggregation and Kansformer network for hyperspectral image classification,” *Neural Networks*, vol. 197, p. 108512, 2026, doi: https://doi.org/10.1016/j.neunet.2025.108512.
+
+[4] Z. Zhong, C. Liang, M. Yang, and D. Wang, “LCTNet: Lightweight Convolution-Transformer Network for Hyperspectral Image Classification,” *IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing*, vol. 19, pp. 7844–7857, 2026, doi: [10.1109/JSTARS.2026.3665704](https://doi.org/10.1109/JSTARS.2026.3665704).
+
 ## 2025:
 
 [1] B. Zhang, Y. Chen, S. Xiong, and X. Lu, “Hyperspectral Image Classification via Cascaded Spatial Cross-Attention Network,” *IEEE Transactions on Image Processing*, vol. 34, pp. 899–913, 2025, doi: [10.1109/TIP.2025.3533205](https://doi.org/10.1109/TIP.2025.3533205).
@@ -20,7 +30,7 @@ Based on [[**Code**]](https://github.com/zhonghaochen/SiT/tree/main) by [Zhongha
 
 Based on [[**Code**]](https://github.com/szq0816/DSGAN) by [Zhenqiu Shu](https://ieeexplore.ieee.org/author/37085652490). No explicit license was provided. If there is any infringement, please contact me
 
-
+[5] M. Q. Alkhatib, S. Kumar Roy, and A. Jamali, “MixerSENet: A Lightweight Framework for Efficient Hyperspectral Image Classification,” *IEEE Geoscience and Remote Sensing Letters*, vol. 22, pp. 1–5, 2025, doi: [10.1109/LGRS.2025.3616338](https://doi.org/10.1109/LGRS.2025.3616338).
 
 ## 2024:
 

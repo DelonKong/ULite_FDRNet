@@ -21,6 +21,11 @@ from .speformer import speformer
 from .ssftt import ssftt
 from .MHIAIFormer import MHIAIFormer
 from .LMSS_NAS import LMSS_NAS
+from .LCTNet import LCTNet
+from .MixerSENet import MixerSENet
+from .CSAKansformer import CSAKansformer
+from .SSMoGAN import SSMoGAN
+from .HyperRoPESST import HyperRoPESST
 from .Mamba_Models.CenterMamba import CenterMamba
 from .Mamba_Models.HyperMamba import HyperMamba
 from .Mamba_Models.IGroupSSMamba import IGroupSSMamba
@@ -137,6 +142,16 @@ def get_model(model_name,
     elif model_name == 'ACB':
         model = ACB(dataset_name, patch_size)
 
+    elif model_name == 'HyperRoPESST':
+        model = HyperRoPESST(dataset_name, patch_size)
+    elif model_name == 'LCTNet':
+        model = LCTNet(dataset_name, patch_size)
+    elif model_name == 'MixerSENet':
+        model = MixerSENet(dataset_name, patch_size)
+    elif model_name == 'CSAKansformer':
+        model = CSAKansformer(dataset_name, patch_size)
+    elif model_name == 'SSMoGAN':
+        model = SSMoGAN(dataset_name, patch_size)
 
     # ==================================================================
     # Mamba models
