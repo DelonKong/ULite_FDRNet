@@ -107,6 +107,14 @@ def load_scheduler(model_name, model):
         optimizer = optim.Adam(model.parameters(), lr=0.01)
         scheduler = None
 
+    elif model_name == 'CSAKansformer':
+        optimizer = optim.Adam(model.parameters(), lr=2e-4, betas=(0.9, 0.999), eps=1e-8, weight_decay=0.0)
+        scheduler = None
+
+    elif model_name == 'LCTNet':
+        optimizer = optim.NAdam(model.parameters(), lr=1e-3)
+        scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.9)
+
     elif model_name == 'ULite_TAA':
         optimizer = optim.Adam(model.parameters(), lr=1e-3, betas=(0.9, 0.999), eps=1e-8)
         scheduler = None
