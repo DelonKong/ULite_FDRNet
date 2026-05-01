@@ -100,12 +100,12 @@ models/
 **The comparison method in the article:**
 
 ```
-=============================== Non Lite:===============================
-A2S2K(TGRS 2021), SSFTT(TGRS 2022), morphFormer(TGRS 2023), LRDTN(TGRS 2024),
-CSCANet(TIP 2025, pca=30), S2VNet(TGRS 2025), CSAKansformer(NN 2026)
-=============================== lite:===============================
-LS2CM(LGRS 2021), ELS2T(TGRS 2023), LMSS_NAS(TGRS 2023), 
-CLOLN(TGRS 2024), ACB(TGRS 2024), LCTNet(JSTARS, 2026)
+# =============================== Non Lite:===============================
+# A2S2K(TGRS 2021), SSFTT(TGRS 2022), morphFormer(TGRS 2023), LRDTN(TGRS 2024),
+# CSCANet(TIP 2025, pca=30), S2VNet(TGRS 2025), CSAKansformer(NN 2026, pca=30)
+# =============================== lite:===============================
+# LS2CM(LGRS 2021), ELS2T(TGRS 2023), LMSS(TGRS 2023),
+# CLOLN(TGRS 2024), ACB(TGRS 2024), LCTNet(JSTARS, 2026)
 ```
 
 Other detailed information is in [README](https://github.com/DelonKong/ULite_FDRNet/blob/main/models/README.md)
