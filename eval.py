@@ -27,10 +27,16 @@ if __name__ == "__main__":
     # =========================================
     parser.add_argument("--model", type=str, default='LRDTN')
     parser.add_argument("--weights", type=str, default="./checkpoints/LRDTN/whulk/3")
+    # proposed: ULite_FDRNet
     # =============================== Non Lite:===============================
-    # A2S2K(TGRS 2021), SSFTT(TGRS 2022), morphFormer(TGRS 2023), LRDTN(TGRS 2024), CSCANet(TIP 2025, pca=30), S2VNet(TGRS 2025)
+    # A2S2K(TGRS 2021), SSFTT(TGRS 2022), morphFormer(TGRS 2023), LRDTN(TGRS 2024),
+    # CSCANet(TIP 2025, pca=30), S2VNet(TGRS 2025), CSAKansformer(NN 2026)
     # =============================== lite:===============================
-    # LS2CM(LGRS 2021), ELS2T(TGRS 2023), LMSS_NAS(TGRS 2023), CLOLN(TGRS 2024), ACB(TGRS 2024)
+    # LS2CM(LGRS 2021), ELS2T(TGRS 2023), LMSS_NAS(TGRS 2023), CLOLN(TGRS 2024), ACB(TGRS 2024), LCTNet(JSTARS, 2026)
+    # =============================== others:===============================
+    # DFFN(TGRS 2018), GhostNet(LGRS 2019), HybridSN(LGRS 2020), GAHT(TGRS 2022), SpectalFormer(TGRS 2022),
+    # BS2T(TGRS 2022), HybridFormer(TGRS 2023), AMF(TGRS 2023), DSNet(TGRS 2024), MHIAIFormer(JSTARS, 2024)
+    # MixerSENet(LGRS, 2025), SSMoGAN(NN 2026), HyperRoPESST((JSTARS, 2026)
 
     # * data params
     parser.add_argument("--dataset_name", type=str, default="whulk")

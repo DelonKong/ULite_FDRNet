@@ -18,13 +18,9 @@ If you find this project helpful, please give us a star ⭐️.
 	year = {2026},
 	pages = {109200},
 	volume = {203},
-	url = {https://doi.org/10.1016/j.neunet.2026.109200},
+	url = {https://doi.org/10.1016/j.neunet.2026.109200}
 }
 ```
-
-## Abstract
-
-> **Deep Learning-based Hyperspectral Image Classification (DL-HSIC) demands more discriminative spatial-spectral representation while maintaining a balance between computational practicality and classification performance. However, the high computational complexity and massive trainable parameters of DL-HSIC impede the optimal balance. To address these limitations, a novel Ultralightweight Progressive Feature Disentanglement and Recomposition Network (ULite-FDRNet) is proposed in this study, which notably achieves balanced optimization of representation capability, parameter efficiency, and classification performance. Based on the Feature Disentanglement and Recomposition paradigm (FDR), we design Ultralight FDR 2D/3D Convolution (FDRConv2D/3D), Ultralight Axial Multiscale FDR 3D Convolution (ScaleFDR3D), and TriAxial Synergistic FDR Attention Module (TriSFDR). Specifically, the FDRConv2D/3D performs a spatial-spectral disentanglement, focusing on shallow spatial detail features while preserving the spectral dependency information. In addition, ScaleFDR3D adds different scales of information to the spatial-spectral decoupling features and disentangles different ranges of features by axial-sensitive kernels and a scale-decreasing strategy. Ultimately, TriSFDR disentangles attention into vertical, horizontal, and spectral three independent axes to acquire spatial global attention and spectral coarse-fine-grained attention. The proposed modules construct progressive feature learning from 2D to 3D to Multiscale to Global, while significantly reducing parameters. Extensive experiments conducted on four HSI benchmarks demonstrate that the proposed ULite-FDRNet maintains superior accuracy while providing an optimal solution in terms of parameter efficiency and representational capability. Specifically, ULite-FDRNet achieves about 98.24%, 97.83%, 97.47%, and 99.57% accuracies with parameters of 1.93 K, 2.05 K, 3.51 K, and 0.86 K respectively. Compared with the standard 2D and 3D convolutions, the proposed FDRConv2D/3D reduces the parameters by 93.66% and 42.97% respectively. ScaleFDR3D effectively maintains multiscale information while reducing parameters by 80%. TriSFDR achieves a linear complexity of *O*(*D*) with fewer parameters.**
 
 ![Fig2_Model](./README.assets/Fig2_Model.png)
 
@@ -89,7 +85,6 @@ models/
 ├── LRDTN.py
 ├── LS2CM.py
 ├── MHIAIFormer.py
-├── README.md				<-- readme
 ├── attention.py
 ├── cnn3d.py
 ├── dffn.py
@@ -155,10 +150,6 @@ Available at: [SDFC dataset: a large-scale benchmark dataset for hyperspectral i
 ![image-20250731164958257](./README.assets/image-20250731164958257.png)
 
 Other detailed information and download link is in [README](https://github.com/DelonKong/ULite_FDRNet/blob/main/datasets/README.md)
-
-## TODO
-
-- [ ] we'll open source the ULite-FDRNet code after the article is accepted.
 
 # References & Acknowledgement
 

@@ -35,8 +35,6 @@ if __name__ == "__main__":
     # DFFN(TGRS 2018), GhostNet(LGRS 2019), HybridSN(LGRS 2020), GAHT(TGRS 2022), SpectalFormer(TGRS 2022),
     # BS2T(TGRS 2022), HybridFormer(TGRS 2023), AMF(TGRS 2023), DSNet(TGRS 2024), MHIAIFormer(JSTARS, 2024)
     # MixerSENet(LGRS, 2025), SSMoGAN(NN 2026), HyperRoPESST((JSTARS, 2026)
-    # =============================== REPLACEMENT EXPERIMENTS:===============================
-    # A2S2K_FDR, SSFTT_FDR, LRDTN_FDR(pca=100), CSCANet_FDR(pca=30)
     # =============================== Mamba models:===============================
     # CenterMamba, HyperMamba, IGroupSSMamba, MambaHSI, 3DSSMamba
 
