@@ -11,17 +11,22 @@ If you find this project helpful, please give us a star ⭐️.
 > **D. Kong**, S. Zhang, X. Yu, Y. Lu, S. Yang, and J. Zhang, “Ultralightweight progressive feature disentanglement and recomposition network for hyperspectral image classification,” ***Neural Networks***, vol. 203, p. 109200, Nov. 2026, doi: [10.1016/j.neunet.2026.109200](https://doi.org/10.1016/j.neunet.2026.109200).
 >
 > @article{kong_ultralightweight_2026,
-> 	title = {Ultralightweight progressive feature disentanglement and recomposition network for hyperspectral image classification},
-> 	volume = {203},
-> 	issn = {08936080},
-> 	url = {https://linkinghub.elsevier.com/retrieve/pii/S0893608026006611},
-> 	doi = {10.1016/j.neunet.2026.109200},
-> 	urldate = {2026-06-03},
-> 	journal = {Neural Networks},
-> 	author = {Kong, Delong and Zhang, Shichao and Yu, Xiang and Lu, Yanshuang and Yang, Shanshan and Zhang, Jiahua},
-> 	month = nov,
-> 	year = {2026},
-> 	pages = {109200}
+>
+> ​	title = {Ultralightweight progressive feature disentanglement and recomposition network for hyperspectral image classification},
+>
+> ​	author = {Kong, Delong and Zhang, Shichao and Yu, Xiang and Lu, Yanshuang and Yang, Shanshan and Zhang, Jiahua},
+>
+> ​	volume = {203},
+>
+> ​	issn = {08936080},
+>
+> ​	url = {https://doi.org/10.1016/j.neunet.2026.109200},
+>
+> ​	journal = {Neural Networks},
+>
+> ​	year = {2026},
+>
+> ​	pages = {109200}
 > }
 
 ## Abstract
