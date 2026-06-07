@@ -21,7 +21,7 @@ If you find this project helpful, please give us a star ⭐️.
 > 	author = {Kong, Delong and Zhang, Shichao and Yu, Xiang and Lu, Yanshuang and Yang, Shanshan and Zhang, Jiahua},
 > 	month = nov,
 > 	year = {2026},
-> 	pages = {109200},
+> 	pages = {109200}
 > }
 
 ## Abstract
