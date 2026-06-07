@@ -14,12 +14,11 @@ If you find this project helpful, please give us a star ⭐️.
 @article{kong_ultralightweight_2026,
 	title = {Ultralightweight progressive feature disentanglement and recomposition network for hyperspectral image 	classification},
 	author = {Kong, Delong and Zhang, Shichao and Yu, Xiang and Lu, Yanshuang and Yang, Shanshan and Zhang, Jiahua},
-	volume = {203},
-	issn = {08936080},
-	url = {https://doi.org/10.1016/j.neunet.2026.109200},
 	journal = {Neural Networks},
 	year = {2026},
-	pages = {109200}
+	pages = {109200},
+	volume = {203},
+	url = {https://doi.org/10.1016/j.neunet.2026.109200},
 }
 ```
 
